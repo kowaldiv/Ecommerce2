@@ -43,7 +43,7 @@ export function ProductCard({
     });
   };
 
-  const removeFromCart = (productId: number) => {
+  const decrementCartItem = (productId: number) => {
     setCart((prevCart) => {
       const newCart = new Map(prevCart);
       const currentCount = newCart.get(productId) || 0;
@@ -150,7 +150,7 @@ export function ProductCard({
           <div className="flex justify-between items-center">
             <Button
               variant="default"
-              onClick={() => removeFromCart(product.id)}
+              onClick={() => decrementCartItem(product.id)}
               title="-"
               className="w-10 h-10"
             />

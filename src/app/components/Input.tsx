@@ -9,7 +9,7 @@ export function Input({
   type?: React.HTMLInputTypeAttribute;
   className?: string;
   value?: string | number;
-  onChange?: () => void;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   placeholder?: string;
 }) {
   return (

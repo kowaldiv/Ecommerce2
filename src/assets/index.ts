@@ -4,6 +4,7 @@ import select from "@/public/select.svg";
 import clock from "@/public/clock.svg";
 import arrow from "@/public/arrow.svg";
 import favorite from "@/public/favorite.svg";
+import bin from "@/public/bin.svg";
 
 export const images = {
   icons: {
@@ -13,5 +14,6 @@ export const images = {
     clock,
     arrow,
     favorite,
+    bin,
   },
 };

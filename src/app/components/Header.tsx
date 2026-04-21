@@ -32,29 +32,41 @@ export function Header({
   return (
     <header className="sticky top-0 z-10 bg-background w-full border-b border-b-border">
       <div className="max-w-360 w-full mx-auto sm:px-8 px-4">
-        <div className="w-full h-16 flex justify-between items-center border-b border-b-border sm:border-0">
+        <div
+          className={`w-full h-16 flex justify-between items-center ${pageType !== "cart" ? "border-b border-b-border" : ""} sm:border-0`}
+        >
           <div className="flex gap-6 items-center">
-            <a className="font-medium text-xl sm:text-2xl" href="">
+            <Button
+              onClick={() => setPageType("tv")}
+              className="font-medium text-xl sm:text-2xl"
+            >
               TechStore
-            </a>
-            <div className="hidden sm:block">
-              <div className="flex gap-2">
-                {stores.map((store, index) => {
-                  return (
-                    <Button
-                      key={index}
-                      title={store.title}
-                      onClick={() => setPageType(store.storeName)}
-                      className={`font-medium  
+            </Button>
+            {pageType !== "cart" ? (
+              <div className="hidden sm:block">
+                <div className="flex gap-2">
+                  {stores.map((store, index) => {
+                    return (
+                      <Button
+                        key={index}
+                        title={store.title}
+                        onClick={() => setPageType(store.storeName)}
+                        className={`font-medium  
                         ${pageType === store.storeName ? "text-foreground" : "text-grayText"}`}
-                    />
-                  );
-                })}
+                      />
+                    );
+                  })}
+                </div>
               </div>
-            </div>
+            ) : (
+              ""
+            )}
           </div>
           <div className="flex gap-2">
-            <Button className="p-1! relative">
+            <Button
+              onClick={() => setPageType("cart")}
+              className="p-1! relative"
+            >
               <img src={images.icons.cart} alt="cart" className="p-2!" />
               <div className="absolute bg-foreground text-background w-4.5 h-4.5 flex text-xs items-center justify-center rounded-2xl right-0 top-0">
                 {cartLength}
@@ -66,7 +78,7 @@ export function Header({
           </div>
         </div>
       </div>
-      <div>
+      {pageType !== "cart" ? (
         <div className="flex justify-between sm:hidden py-3 px-4">
           {stores.map((store) => {
             return (
@@ -80,7 +92,9 @@ export function Header({
             );
           })}
         </div>
-      </div>
+      ) : (
+        ""
+      )}
     </header>
   );
 }

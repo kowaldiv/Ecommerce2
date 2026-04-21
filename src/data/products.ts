@@ -1,8 +1,8 @@
-import type { PageType } from "../app/components/Container";
+export type ProductCategoryType = "tv" | "phone" | "laptop"
 
 export interface Product {
   id: number;
-  category: PageType;
+  category: ProductCategoryType;
   make: string;
   model: string;
   price: number;

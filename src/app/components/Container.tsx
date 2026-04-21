@@ -3,7 +3,7 @@ import { Footer } from "./Footer";
 import { Header } from "./Header";
 import { Content } from "./Content";
 
-export type PageType = "tv" | "phone" | "laptop";
+export type PageType = "tv" | "phone" | "laptop" | "cart";
 
 export function Container() {
   const [pageType, setPageType] = useState<PageType>("tv");
@@ -19,7 +19,7 @@ export function Container() {
           0,
         )}
       />
-      <Content pageType={pageType} cart={cart} setCart={setCart} />
+      <Content pageType={pageType} cart={cart} setCart={setCart} setPageType={setPageType} />
       <Footer />
     </div>
   );
