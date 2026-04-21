@@ -1,7 +1,7 @@
 import { images } from "@/src/assets";
-import { Button } from "../../components/Button";
-import { Dropdown } from "../../components/Dropdown";
-import { Input } from "../../components/Input";
+import { Dropdown } from "./Dropdown";
+import { Input } from "./Input";
+import { Button } from "./Button";
 
 export function SideBar() {
   return (

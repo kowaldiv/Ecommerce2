@@ -3,7 +3,15 @@ import { Button } from "./Button";
 import { images } from "@/src/assets";
 import type { Product } from "@/src/data/products";
 
-export function ProductCard({ product }: { product: Product }) {
+export function ProductCard({
+  product,
+  setCart,
+  cart,
+}: {
+  product: Product;
+  setCart: React.Dispatch<React.SetStateAction<Map<number, number>>>;
+  cart: Map<number, number>;
+}) {
   const imagePlaceholderRef = useRef<HTMLDivElement>(null);
 
   const [openedAvatarIndex, setOpenedAvatarIndex] = useState(1);
@@ -26,6 +34,34 @@ export function ProductCard({ product }: { product: Product }) {
     [openedAvatarIndex, product],
   );
 
+  const addToCart = (productId: number) => {
+    setCart((prevCart) => {
+      const newCart = new Map(prevCart);
+      const currentCount = newCart.get(productId) || 0;
+      newCart.set(productId, currentCount + 1);
+      return newCart;
+    });
+  };
+
+  const removeFromCart = (productId: number) => {
+    setCart((prevCart) => {
+      const newCart = new Map(prevCart);
+      const currentCount = newCart.get(productId) || 0;
+
+      if (currentCount <= 1) {
+        // Если осталась 1 единица, удаляем товар из корзины
+        newCart.delete(productId);
+      } else {
+        // Иначе уменьшаем количество на 1
+        newCart.set(productId, currentCount - 1);
+      }
+
+      return newCart;
+    });
+  };
+
+  const quantity = cart.get(product.id) || 0;
+
   return (
     <div
       onMouseEnter={() => setIsHover(true)}
@@ -35,10 +71,10 @@ export function ProductCard({ product }: { product: Product }) {
       <div className="w-full aspect-square">
         <div className="absolute flex w-full bg-gray-500 overflow-hidden">
           <div ref={imagePlaceholderRef} className="flex w-full transition">
-            {product.images.map((image) => {
+            {product.images.map((image, index) => {
               return (
                 <img
-                  key={image}
+                  key={index}
                   className="min-w-full aspect-square object-cover"
                   src={image}
                   alt="product preview"
@@ -68,6 +104,7 @@ export function ProductCard({ product }: { product: Product }) {
                 {product.images.map((_, index) => {
                   return (
                     <div
+                      key={index}
                       className={`h-1.5 rounded-2xl ${index + 1 === openedAvatarIndex ? "w-3.75 bg-foreground" : "w-1.5 bg-background"}`}
                     ></div>
                   );
@@ -102,7 +139,30 @@ export function ProductCard({ product }: { product: Product }) {
           </div>
           <p>${product.price}</p>
         </div>
-        <Button variant="primary" title="Add to Cart" className="w-full" />
+        {!quantity ? (
+          <Button
+            variant="primary"
+            onClick={() => addToCart(product.id)}
+            title="Add to Cart"
+            className="w-full"
+          />
+        ) : (
+          <div className="flex justify-between items-center">
+            <Button
+              variant="default"
+              onClick={() => removeFromCart(product.id)}
+              title="-"
+              className="w-10 h-10"
+            />
+            <span>{quantity} in cart</span>
+            <Button
+              variant="primary"
+              onClick={() => addToCart(product.id)}
+              title="+"
+              className="w-10 h-10"
+            />
+          </div>
+        )}
       </div>
     </div>
   );

@@ -44,14 +44,18 @@ export function Footer() {
   return (
     <footer className="border-t border-t-border">
       <div className="max-w-360 w-full mx-auto px-8 py-8 grid sm:grid-cols-2 xl:grid-cols-4 gap-8">
-        {cols.map((col) => {
+        {cols.map((col, index) => {
           return col.type === "default" ? (
-            <div key={col.title} className="grid gap-3">
+            <div key={index} className="grid gap-3">
               <h3 className="text-lg font-medium">{col.title}</h3>
               <div className="grid gap-2">
-                {col.links?.map((link) => {
+                {col.links?.map((link, index) => {
                   return (
-                    <a href={link.href} className="text-grayText">
+                    <a
+                      href={link.href}
+                      key={index}
+                      className="text-grayText"
+                    >
                       {link.title}
                     </a>
                   );
@@ -59,7 +63,7 @@ export function Footer() {
               </div>
             </div>
           ) : (
-            <div className="flex flex-col gap-3">
+            <div key={index} className="flex flex-col gap-3">
               <h3 className="text-lg font-medium">{col.title}</h3>
               <p className="text-grayText">{col.description}</p>
               <div className="flex gap-2">

@@ -1,25 +1,34 @@
 import { Button } from "./Button";
 import { images } from "@/src/assets";
+import type { PageType } from "./Container";
 
-const stores = [
+const stores: {
+  title: string;
+  storeName: PageType;
+}[] = [
   {
     title: "TV",
     storeName: "tv",
-    onClick: () => {},
   },
   {
     title: "Phone",
     storeName: "phone",
-    onClick: () => {},
   },
   {
     title: "Laptop",
     storeName: "laptop",
-    onClick: () => {},
   },
 ];
 
-export function Header() {
+export function Header({
+  pageType,
+  setPageType,
+  cartLength,
+}: {
+  pageType: PageType;
+  setPageType: (pageType: PageType) => void;
+  cartLength: number;
+}) {
   return (
     <header className="sticky top-0 z-10 bg-background w-full border-b border-b-border">
       <div className="max-w-360 w-full mx-auto sm:px-8 px-4">
@@ -30,13 +39,14 @@ export function Header() {
             </a>
             <div className="hidden sm:block">
               <div className="flex gap-2">
-                {stores.map((store) => {
+                {stores.map((store, index) => {
                   return (
                     <Button
-                      key={store.title}
+                      key={index}
                       title={store.title}
-                      onClick={store.onClick}
-                      className={`font-medium text-grayText`}
+                      onClick={() => setPageType(store.storeName)}
+                      className={`font-medium  
+                        ${pageType === store.storeName ? "text-foreground" : "text-grayText"}`}
                     />
                   );
                 })}
@@ -44,8 +54,11 @@ export function Header() {
             </div>
           </div>
           <div className="flex gap-2">
-            <Button className="p-1!">
+            <Button className="p-1! relative">
               <img src={images.icons.cart} alt="cart" className="p-2!" />
+              <div className="absolute bg-foreground text-background w-4.5 h-4.5 flex text-xs items-center justify-center rounded-2xl right-0 top-0">
+                {cartLength}
+              </div>
             </Button>
             <Button className="p-1!">
               <img src={images.icons.profile} alt="profile" className="p-2!" />
@@ -60,8 +73,9 @@ export function Header() {
               <Button
                 key={store.title}
                 title={store.title}
-                onClick={store.onClick}
-                className={`font-medium text-grayText flex-1 h-10`}
+                onClick={() => setPageType(store.storeName)}
+                className={`font-medium flex-1 h-10 
+                  ${pageType === store.storeName ? "text-foreground" : "text-grayText"}`}
               />
             );
           })}

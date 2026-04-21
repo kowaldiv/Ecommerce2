@@ -1,16 +1,8 @@
 import "./App.css";
-import { Footer } from "./components/Footer";
-import { Header } from "./components/Header";
-import { Home } from "./pages/home-page/Home";
+import { Container } from "./components/Container";
 
 function App() {
-  return (
-    <div className="min-h-dvh flex flex-col">
-      <Header />
-      <Home />
-      <Footer />
-    </div>
-  );
+  return <Container />;
 }
 
 export default App;
