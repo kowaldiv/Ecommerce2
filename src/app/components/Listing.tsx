@@ -18,7 +18,7 @@ export function Listing({
   const [appliedFilters, setAppliedFilters] = useState({
     brand: "all",
     minPrice: 0,
-    maxPrice: Infinity,
+    maxPrice: 5000,
   });
 
   const [sortOrder, setSortOrder] = useState<SortOrder>("lowToHigh");

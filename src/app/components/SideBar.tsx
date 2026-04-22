@@ -72,8 +72,16 @@ export function SideBar({
             <div className="grid gap-2">
               <p className="text-base font-medium">Price Range</p>
               <div className="flex gap-2">
-                <Input onChange={handleMinPriceChange} type="number" />
-                <Input onChange={handleMaxPriceChange} type="number" />
+                <Input
+                  onChange={handleMinPriceChange}
+                  placeholder={initialMinPrice.toString()}
+                  type="number"
+                />
+                <Input
+                  onChange={handleMaxPriceChange}
+                  placeholder={initialMaxPrice.toString()}
+                  type="number"
+                />
               </div>
             </div>
           </div>
