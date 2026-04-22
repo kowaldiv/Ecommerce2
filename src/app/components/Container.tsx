@@ -19,7 +19,12 @@ export function Container() {
           0,
         )}
       />
-      <Content pageType={pageType} cart={cart} setCart={setCart} setPageType={setPageType} />
+      <Content
+        pageType={pageType}
+        cart={cart}
+        setCart={setCart}
+        setPageType={setPageType}
+      />
       <Footer />
     </div>
   );
